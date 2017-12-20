@@ -1,3 +1,9 @@
+"""Performs linear regression using gradient descent.
+
+Linear regression can be solved directly, but here
+we show how to calculate gradients and use simple
+gradient descent."""
+
 import numpy as np
 
 NUM_EPOCHS = 100000
@@ -6,13 +12,13 @@ LEARNING_RATE = 0.005
 LOSS_DISPLAY_FREQUENCY = 500
 
 def gradw(x, yp, y): # weight gradient
-    return x.T.dot(y-yp) / y.shape[0]
+    return x.T.dot(yp - y) / y.shape[0]
 
 def gradb(yp, y): # bias gradient
-    return (y - yp).sum() / y.shape[0]
+    return (yp - y).sum() / y.shape[0]
 
 def loss(yp, y): # loss (cost)
-    l = (y - yp) * (y - yp)
+    l = (yp - y) * (yp - y)
     return -l.sum()
 
 def forward(x, w, b): # forward pass through network
@@ -39,8 +45,8 @@ def main():
         gb = gradb(yp, y)
         
         # update weights
-        w = w + LEARNING_RATE * gw
-        b = b + LEARNING_RATE * gb
+        w = w - LEARNING_RATE * gw
+        b = b - LEARNING_RATE * gb
 
         # calculate loss in regular intervals
         if i % LOSS_DISPLAY_FREQUENCY == 0:
