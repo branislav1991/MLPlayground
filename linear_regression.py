@@ -11,14 +11,14 @@ NUM_EPOCHS = 100000
 LEARNING_RATE = 0.005
 LOSS_DISPLAY_FREQUENCY = 500
 
-def gradw(x, yp, y): # weight gradient
-    return x.T.dot(yp - y) / y.shape[0]
+def gradw(x, y_hat, y): # weight gradient
+    return x.T.dot(y_hat - y) / y.shape[0]
 
-def gradb(yp, y): # bias gradient
-    return (yp - y).sum() / y.shape[0]
+def gradb(y_hat, y): # bias gradient
+    return (y_hat - y).sum() / y.shape[0]
 
-def loss(yp, y): # loss (cost)
-    l = (yp - y) * (yp - y)
+def loss(y_hat, y): # L2 loss (cost)
+    l = (y_hat - y) * (y_hat - y)
     return -l.sum()
 
 def forward(x, w, b): # forward pass through network
@@ -38,11 +38,11 @@ def main():
 
     # perform gradient descent
     for i in range(1, NUM_EPOCHS):
-        yp = forward(x, w, b)
+        y_hat = forward(x, w, b)
 
         # calculate gradients
-        gw = gradw(x, yp, y)
-        gb = gradb(yp, y)
+        gw = gradw(x, y_hat, y)
+        gb = gradb(y_hat, y)
         
         # update weights
         w = w - LEARNING_RATE * gw
@@ -50,11 +50,15 @@ def main():
 
         # calculate loss in regular intervals
         if i % LOSS_DISPLAY_FREQUENCY == 0:
-            l = loss(yp, y)
+            l = loss(y_hat, y)
             print("Loss in {0}th epoch: {1:5f}".format(i, l))
 
     print("Final weights: w = {0}, b = {1}".format(w, b))
 
+    # predict some numbers
+    x_pred = np.array([[1,6],[2,7],[3,8],[4,9],[5,10]])
+    y_pred = forward(x_pred, w, b)
+    print("Predictions: {0}".format(y_pred))
 
 if __name__ == '__main__':
     main()
