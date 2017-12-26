@@ -4,11 +4,9 @@ In this version of logistic regression, we use the MNIST
 dataset and train on minibatches of the dataset"""
 
 import numpy as np
-import requests
-import shutil
 import pandas as pd
-import pathlib
 import math
+import common
 
 NUM_CLASSES = 10
 NUM_FEATURES = 784
@@ -21,29 +19,6 @@ LEARNING_RATE = 0.01
 LOSS_DISPLAY_FREQUENCY = 100
 
 BATCH_SIZE = 32
-
-def download_data(): # download MNIST as csv files to /mnist
-    dataset = [{
-        "url": "https://pjreddie.com/media/files/mnist_train.csv",
-        "path": "./mnist/mnist_train.csv"
-    },
-    {
-        "url": "https://pjreddie.com/media/files/mnist_test.csv",
-        "path": "./mnist/mnist_test.csv"
-    }]
-    if (not pathlib.Path(dataset[0]["path"]).exists()) or (not pathlib.Path(dataset[1]["path"]).exists()):
-        pathlib.Path('./mnist').mkdir(parents=True, exist_ok=True) 
-        for data in dataset:
-            r = requests.get(data["url"], stream=True, verify=False)
-            if r.status_code == 200:
-                with open(data["path"], 'wb') as f:
-                    for chunk in r:
-                        f.write(chunk)
-
-def one_hot(labels, num_classes): # convert label numbers to one-hot encoding
-    y = [[1 if y==x else 0 for y in range(0,NUM_CLASSES)] for x in labels]
-    y = np.array(y)
-    return y
 
 def logistic(x): # logistic function
     return 1.0 / (1.0 + np.exp(-x))
@@ -73,11 +48,16 @@ def accuracy(y_hat, y):
      correct_prediction = correct_prediction.astype(float)
      return correct_prediction.mean()
 
+def one_hot(labels, num_classes): # convert label numbers to one-hot encoding
+    y = [[1 if y==x else 0 for y in range(0, num_classes)] for x in labels]
+    y = np.array(y)
+    return y
+
 def forward(x, w, b): # forward pass through network
     return x.dot(w) + b
 
 def main():
-    download_data() # download mnist dataset if it does not exist yet
+    common.download_data() # download mnist dataset if it does not exist yet
     df = pd.read_csv("./mnist/mnist_train.csv")
 
     x = df.iloc[0:NUM_EXAMPLES,1:].as_matrix() # features
@@ -85,7 +65,7 @@ def main():
     x = x / 255.0 # normalize to [0,1]
 
     y = df.iloc[0:NUM_EXAMPLES,0].as_matrix() #labels
-    y = one_hot(y, 10)
+    y = one_hot(y, NUM_CLASSES)
 
     w = np.random.rand(NUM_FEATURES, NUM_CLASSES) # randomly initialize weights
     b = np.zeros(NUM_CLASSES) # initialize biases to zero
