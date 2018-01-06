@@ -1,6 +1,12 @@
 import numpy as np
 import pathlib
 import requests
+from enum import Enum
+
+class Mode(Enum):
+    TRAIN = 1
+    EVAL = 2
+    PREDICT = 3
 
 def download_data(): # download MNIST as csv files to /mnist
     dataset = [{
