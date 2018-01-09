@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 
 from common import Mode
 
-#MODE = Mode.TRAIN
-MODE = Mode.EVAL
+MODE = Mode.TRAIN
+#MODE = Mode.EVAL
 #MODE = Mode.PREDICT
 
 NUM_FEATURES = 784
@@ -20,6 +20,7 @@ def main():
     tf.logging.set_verbosity(tf.logging.INFO)
 
     common.download_data() # download mnist dataset if it does not exist yet
+    common.create_checkpoint_folder()
 
     # NN
     input = tf.placeholder(tf.float32, shape=(None, NUM_FEATURES))
@@ -52,7 +53,7 @@ def main():
                 print("Epoch {0}: Loss {1}".format(i,l))
 
                 # save model checkpoint each epoch
-                saver.save(sess, "./checkpoints/vae", global_step=i)
+                saver.save(sess, "./checkpoints/autoencoder/ae", global_step=i)
 
             print("Done training. Saving weights to disk")
 
@@ -65,7 +66,7 @@ def main():
 
             sess.run([tf.global_variables_initializer(), tf.local_variables_initializer()])
 
-            checkpoint_path = tf.train.latest_checkpoint("./checkpoints")
+            checkpoint_path = tf.train.latest_checkpoint("./checkpoints/autoencoder")
             saver.restore(sess, checkpoint_path)
 
             ml, l2, r = sess.run([mean_loss, l2_loss, recon], feed_dict={input: samp})

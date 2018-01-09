@@ -1,12 +1,19 @@
+import os
 import numpy as np
 import pathlib
 import requests
 from enum import Enum
 
+CHECKPOINT_DIR = "./checkpoints"
+
 class Mode(Enum):
     TRAIN = 1
     EVAL = 2
     PREDICT = 3
+
+def create_checkpoint_folder():
+    if not os.path.exists(CHECKPOINT_DIR):
+        os.makedirs(CHECKPOINT_DIR)
 
 def download_data(): # download MNIST as csv files to /mnist
     dataset = [{
