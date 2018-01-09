@@ -18,7 +18,7 @@ BATCH_SIZE = 32
 def main():
     tf.logging.set_verbosity(tf.logging.INFO)
 
-    common.download_data() # download mnist dataset if it does not exist yet
+    common.download_mnist_data() # download mnist dataset if it does not exist yet
     df = pd.read_csv("./mnist/mnist_train.csv")
 
     x_samp = df.iloc[0:NUM_EXAMPLES,1:].as_matrix() # features

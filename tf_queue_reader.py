@@ -21,7 +21,7 @@ def main():
 
     tf.logging.set_verbosity(tf.logging.INFO)
 
-    common.download_data() # download mnist dataset if it does not exist yet
+    common.download_mnist_data() # download mnist dataset if it does not exist yet
 
     # input pipeline
     csv_file = tf.train.string_input_producer(["./mnist/mnist_train.csv"], num_epochs=NUM_EPOCHS)

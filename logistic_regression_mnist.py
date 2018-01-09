@@ -57,7 +57,7 @@ def forward(x, w, b): # forward pass through network
     return x.dot(w) + b
 
 def main():
-    common.download_data() # download mnist dataset if it does not exist yet
+    common.download_mnist_data() # download mnist dataset if it does not exist yet
     df = pd.read_csv("./mnist/mnist_train.csv")
 
     x = df.iloc[0:NUM_EXAMPLES,1:].as_matrix() # features

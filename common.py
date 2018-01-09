@@ -15,7 +15,7 @@ def create_checkpoint_folder():
     if not os.path.exists(CHECKPOINT_DIR):
         os.makedirs(CHECKPOINT_DIR)
 
-def download_data(): # download MNIST as csv files to /mnist
+def download_mnist_data(): # download MNIST as csv files to /mnist
     dataset = [{
         "url": "https://pjreddie.com/media/files/mnist_train.csv",
         "path": "./mnist/mnist_train.csv"

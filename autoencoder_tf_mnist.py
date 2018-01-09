@@ -19,7 +19,7 @@ BATCH_SIZE = 32
 def main():
     tf.logging.set_verbosity(tf.logging.INFO)
 
-    common.download_data() # download mnist dataset if it does not exist yet
+    common.download_mnist_data() # download mnist dataset if it does not exist yet
     common.create_checkpoint_folder()
 
     # NN
