@@ -21,9 +21,7 @@ def main():
     common.download_mnist_data() # download mnist dataset if it does not exist yet
     df = pd.read_csv("./mnist/mnist_train.csv")
 
-    x_samp = df.iloc[0:NUM_EXAMPLES,1:].as_matrix() # features
-    x_samp = x_samp.astype(float)
-    x_samp = x_samp / 255.0 # normalize to [0,1]
+    x_samp = df.iloc[0:NUM_EXAMPLES,1:].astype("float64").divide(255.0).as_matrix() # features
 
     y_samp = df.iloc[0:NUM_EXAMPLES,0].as_matrix() #labels
     y_samp = tf.one_hot(y_samp, NUM_CLASSES)

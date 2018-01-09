@@ -60,9 +60,7 @@ def main():
         elif MODE == Mode.EVAL: # try to compress and reconstruct a MNIST datapoint
             df = pd.read_csv("./mnist/mnist_test.csv")
 
-            samp = df.iloc[:,1:].as_matrix() # features
-            samp = samp.astype(float)
-            samp = samp / 255.0 # normalize to [0,1]
+            samp = df.iloc[:,1:].astype("float64").divide(255.0).as_matrix() # features
 
             sess.run([tf.global_variables_initializer(), tf.local_variables_initializer()])
 

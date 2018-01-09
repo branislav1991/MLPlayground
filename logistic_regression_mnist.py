@@ -60,9 +60,7 @@ def main():
     common.download_mnist_data() # download mnist dataset if it does not exist yet
     df = pd.read_csv("./mnist/mnist_train.csv")
 
-    x = df.iloc[0:NUM_EXAMPLES,1:].as_matrix() # features
-    x = x.astype(float)
-    x = x / 255.0 # normalize to [0,1]
+    x = df.iloc[0:NUM_EXAMPLES,1:].astype("float64").divide(255.0).as_matrix() # features
 
     y = df.iloc[0:NUM_EXAMPLES,0].as_matrix() #labels
     y = one_hot(y, NUM_CLASSES)
