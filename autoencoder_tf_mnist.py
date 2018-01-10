@@ -13,14 +13,8 @@ MODE = Mode.TRAIN
 
 NUM_FEATURES = 784
 NUM_EPOCHS = 10000
-LEARNING_RATE = 0.001
+LEARNING_RATE = 0.01
 BATCH_SIZE = 32
-
-def plot_sub(data, title, i):
-    plt.subplot(3,2,i)
-    plt.imshow(data, cmap="gray")
-    plt.axis('off')
-    plt.title(title)
 
 def main():
     tf.logging.set_verbosity(tf.logging.INFO)
@@ -84,14 +78,14 @@ def main():
             median_idx = np.where(l2 == np.median(l2))[0][0]
 
             # plot original and reconstruction for best and worst examples in training dataset
-            plot_sub(samp[best_idx, :, :], "Best (sample)", 1)
-            plot_sub(r[best_idx, :, :], "Best (recon)", 2)
+            common.plot_sub(samp[best_idx, :, :], "Best (sample)", 1)
+            common.plot_sub(r[best_idx, :, :], "Best (recon)", 2)
 
-            plot_sub(samp[median_idx, :, :], "Median (sample)", 3)
-            plot_sub(r[median_idx, :, :], "Median (recon)", 4)
+            common.plot_sub(samp[median_idx, :, :], "Median (sample)", 3)
+            common.plot_sub(r[median_idx, :, :], "Median (recon)", 4)
 
-            plot_sub(samp[worst_idx, :, :], "Worst (sample)", 5)
-            plot_sub(r[worst_idx, :, :], "Worst (recon)", 6)
+            common.plot_sub(samp[worst_idx, :, :], "Worst (sample)", 5)
+            common.plot_sub(r[worst_idx, :, :], "Worst (recon)", 6)
 
             plt.show()
         

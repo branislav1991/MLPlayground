@@ -3,6 +3,7 @@ import numpy as np
 import pathlib
 import requests
 from enum import Enum
+import matplotlib.pyplot as plt
 
 CHECKPOINT_DIR = "./checkpoints"
 
@@ -10,6 +11,12 @@ class Mode(Enum):
     TRAIN = 1
     EVAL = 2
     PREDICT = 3
+
+def plot_sub(data, title, i):
+    plt.subplot(3,2,i)
+    plt.imshow(data, cmap="gray")
+    plt.axis('off')
+    plt.title(title)
 
 def create_checkpoint_folder():
     if not os.path.exists(CHECKPOINT_DIR):
