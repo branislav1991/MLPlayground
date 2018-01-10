@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 
 from common import Mode
 
-MODE = Mode.TRAIN
-#MODE = Mode.EVAL
+#MODE = Mode.TRAIN
+MODE = Mode.EVAL
 #MODE = Mode.PREDICT
 
 NUM_FEATURES = 784
@@ -75,7 +75,7 @@ def main():
 
             worst_idx = np.argmax(l2)
             best_idx = np.argmin(l2)
-            median_idx = np.where(l2 == np.median(l2))[0][0]
+            median_idx = np.where(l2 == np.percentile(l2, 50, interpolation='nearest'))[0][0]
 
             # plot original and reconstruction for best and worst examples in training dataset
             common.plot_sub(samp[best_idx, :, :], "Best (sample)", 1)
