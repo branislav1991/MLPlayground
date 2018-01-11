@@ -3,3 +3,4 @@
 mnist
 *.pyc
 checkpoints
+.tensorboard
