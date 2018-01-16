@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 
 from common import Mode
 
-#MODE = Mode.TRAIN
-MODE = Mode.EVAL
+MODE = Mode.TRAIN
+#MODE = Mode.EVAL
 #MODE = Mode.PREDICT
 
 NUM_FEATURES = 784

@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from common import Mode
 
-#MODE = Mode.TRAIN
+MODE = Mode.TRAIN
 #MODE = Mode.EVAL
-MODE = Mode.PREDICT
+#MODE = Mode.PREDICT
 
 NUM_FEATURES = 784
 NUM_HIDDEN_FEATURES_1 = 16
