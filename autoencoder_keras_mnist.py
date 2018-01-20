@@ -9,13 +9,13 @@ import matplotlib.pyplot as plt
 
 from common import Mode
 
-MODE = Mode.TRAIN
-#MODE = Mode.EVAL
+#MODE = Mode.TRAIN
+MODE = Mode.EVAL
 #MODE = Mode.PREDICT
 
 NUM_FEATURES = 784
 NUM_HIDDEN_FEATURES = 100
-NUM_EPOCHS = 100
+NUM_EPOCHS = 10
 LEARNING_RATE = 0.0005
 BATCH_SIZE = 32
 
@@ -31,15 +31,15 @@ def main():
     # NN
     print("Configuring neural network...")
     input = Input(shape=(28,28,1))
-    hidden_1 = Conv2D(32,(3,3), activation='relu')(input)
-    hidden_2 = Conv2D(1,(3,3), activation='relu')(hidden_1)
+    hidden_1 = Conv2D(32,(5,5), activation='relu')(input)
+    hidden_2 = Conv2D(1,(5,5), activation='relu')(hidden_1)
     hidden_3 = Flatten()(hidden_2)
     hidden_4 = Dense(NUM_HIDDEN_FEATURES, activation='sigmoid')(hidden_3)
 
-    hidden_5 = Dense(24*24, activation='relu')(hidden_4)
-    hidden_6 = Reshape((24,24,1))(hidden_5)
-    hidden_7 = Conv2DTranspose(32, (3,3), activation='relu')(hidden_6)
-    output = Conv2DTranspose(1, (3,3), activation='sigmoid')(hidden_7)
+    hidden_5 = Dense(20*20, activation='relu')(hidden_4)
+    hidden_6 = Reshape((20,20,1))(hidden_5)
+    hidden_7 = Conv2DTranspose(32, (5,5), activation='relu')(hidden_6)
+    output = Conv2DTranspose(1, (5,5), activation='sigmoid')(hidden_7)
 
     print("Compiling model...")
     model = Model(inputs=input, outputs=output)
